@@ -26,12 +26,14 @@ describe("general HTML structure", () => {
       expect(fontRegex.test(stylesheets[1].href)).toBe(true);
 
       let mainFound = false;
+      
+      const lastStyleSheet = stylesheets.length - 1;
       if (i === INDEX) {
-        if (stylesheets[2].href === "styles/main.css") {
+        if (stylesheets[lastStyleSheet].href === "styles/main.css") {
           mainFound = true;
         }
       } else {
-        if (stylesheets[2].href === "../styles/main.css") {
+        if (stylesheets[lastStyleSheet].href === "../styles/main.css") {
           mainFound = true;
         }
       }
