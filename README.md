@@ -32,6 +32,11 @@ Requirements for this section:
 | - [CSS Text Shadow Generator](https://www.cssportal.com/css3-text-shadow-generator/)
 |
 
+| :warning: Dealing with the validator warning "section needs heading |
+|:----|
+| The validator will issue a warning if your `<section>` does not have a heading. You have two options. You can ignore this warning. |
+
+
 ## Dynamic font size
 
 Use the `clamp()` function to dynamically size your `<h1>` font on your hero image.
