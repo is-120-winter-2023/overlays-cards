@@ -106,7 +106,7 @@ Below is an example of markup for your cards. You are welcome to adjust it to su
 </section>
 ```
 
-Since, by default, `<a>` elements are inline elements, you will need to set the `display` property of any `<a>` elements inside the `.cards` class to `inline-block` or `block` to make them behave like block elements. However, if you use a flexbox layout, you won't need to do this. To simplify this assignment, I recommend adding this to your CSS and not worrying about changing the `<a>` display property. We will learn more about how to use flexboxes in a future assignment.
+Since, by default, `<a>` elements are inline elements, you will need to set the `display` property of any `<a>` elements inside the `.cards` class to `inline-block` to make them behave like block elements. However, if you use a flexbox layout, you won't need to do this. To simplify this assignment, I recommend adding this to your CSS and not worrying about changing the `<a>` display property. We will learn more about how to use flexboxes in a future assignment.
 
 ```css
 .cards {
@@ -154,11 +154,44 @@ To transition the `box-shadow` property over 300 milliseconds, you would use
 
 View the [CodePen of these sample cards](https://codepen.io/lsburton/pen/MWwezZW?editors=1100).
 
-## :rocket: Publish on Github Pages
 
-When your assignment is finished, check that is doesn't have any warnings or errors in VS Code, then sync it to Github and publish it on Github Pages. Remember to paste the Github pages URL in the repo _About_ section.
+## :arrow_up: Commit your changes and sync the changes to Github
 
-Make sure to test your website on [validator.nu](https://validator.nu/). If you have any errors, fix them before submitting your URL to Learning Suite.
+### Check for errors or warnings
+
+Use Live Server to check that your site displays correctly and make sure that the VS Code status bar doesn't show any errors or warnings. When you are ready, commit your changes and sync them to Github.
+
+### 🚀 Publish your web page on Github Pages
+
+Open your repo on Github. Publish your site on GitHub pages.
+
+### ⚙️ Enter your repo about information
+
+In your main repo page edit the About section. Enter a description of your repo and add your Pages URL in the **Website** text field.
+
+## Validate your HTML with validator.nu
+
+Once your page is live, use the [validator.nu](https://validator.nu/) service to validate the HTML on all three of your web pages (main, contact, about). Select Show "outline" and "image report" then paste your page URL into the validator and click Check.
+
+**NOTE**: Make sure to check that your `contact` and `about` pages also validate, not just your main page.
+
+Check that your heading outline is in order and that each image has a valid `alt` attribute.
+
+If you have any errors, fix them in VSCode, commit and sync, and then re-validate your page. Make sure to wait a few minutes for Github to generate the updated page.
+
+## Pass automated tests
+
+After you've ensured that your page has validated, open your repo in Github and check that you've passed the automated tests. If you haven't passed all of the tests, fix any errors and commit and sync your changes.
+
+### Current automated tests
+
+- HTML validation
+- HTML proofer
+
+Pretests (25):
+
+foofofoffoofoofooo
+
 
 ### :star: Assignment tests
 
