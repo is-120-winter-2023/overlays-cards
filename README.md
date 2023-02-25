@@ -18,12 +18,19 @@ Add a `<p>` as a subtitle to your site. Wrap your `<picture>`, `<h1>` and subtit
 
 Requirements for this section:
 
-- A `<section>` with class `.hero` that contains your `<picture>`, `<h1>` and subtitle
-- An `<h1>` and `<p>` are overlaid on your hero image using the `position` property – you may group these with a `<div>`. Remember that both `<h1>` and `<p>` have default margins, so you may need to adjust their margins to make the text look right.
-- The overlay uses appropriate background colors, gradients, and/or a filter to de-emphasize the image.
+- A `<section>` with class `.hero` contains your `<picture>`, `<h1>` and a subtitle in a `<p>`.
+- The `<h1>` and `<p>` are overlaid on your hero image using the `position` property – you may group these with a `<div>`.
+- Appropriate whitespace is used &ndash; adjust margins and font size so that `<h1>` and `<p>` "look good."
+- The overlay uses a background gradient and/or the image has CSS filter added to de-emphasize the image.
 - The `<h1>`, and optionally the subtitle, have a subtle text shadow to emphasize them.
 - The overlay gradient or filter covers the entire image (no visible gaps)
 - The text is positioned – it does not have to be centered. Choose where you would like it to display. Flexbox will simplify positioning text, so don't spend time trying to perfectly position the text. At a minimum, it should at least be offset from the edge of the image.
+
+| 💡 Helpful resources |
+|:---|
+| - [Learn more about CSS filters at CSS-Tricks](https://css-tricks.com/almanac/properties/f/filter/) |
+| - [CSS Text Shadow Generator](https://www.cssportal.com/css3-text-shadow-generator/)
+|
 
 ## Dynamic font size
 
@@ -45,13 +52,13 @@ _Don't just copy and paste the CSS above, rather figure out the best font sizes 
 
 | 🔥 **Extra, but optional**: Smoother font sizing with _linear interpolation_                                                                                                                                                                                                                                                                                                                                                                                                        |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| If you like math and want to have more exact control over your font size using linear interpolation, read CSS Trick's [Linearly Scale font-size with CSS clamp() Based on the Viewport](https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/). The article contains a tool to build the `clamp()` statement for you. Here's a [direct link to the tool](https://codesandbox.io/s/clamp-linear-intepolation-based-on-viewport-width-builder-xgkft). |
+| If you want to have more control over your font size using linear interpolation, read CSS Trick's [Linearly Scale font-size with CSS clamp() Based on the Viewport](https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/). The article contains a tool to build the `clamp()` statement for you. <br><br>Another tool to generate a `clamp()` statement is [Adrian Bece's Modern fluid typography editor](https://modern-fluid-typography.vercel.app/). |
 
 `clamp()` is not limited to fonts. You can use it to limit the maximum and minimum size on other elements as well. To learn more, read MDN's page on [clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp). The page also compares `clamp()` to other useful functions such as `min()` and `max()`.
 
 ## Adding cards
 
-Cards are ubiquitous on the internet. They are images, usually with text, that are used to link to other pages or to provide additional information. They are often used to display a collection of items, such as a list of blog posts or a list of products.
+Cards are ubiquitous on the internet. They are teasers, usually images and text, that are used to link to other pages or to provide additional information. They are often used to display a collection of items, such as a list of articles or blog posts or a list of products.
 
 For this assignment, we will create four cards. Since we haven't learned layouts yet, don't worry so much if they don't look good on tablet or mobile. We will learn how to use a flexbox to make them responsive in a future assignment.
 
@@ -59,9 +66,10 @@ Below is a sample of some basic cards:
 
 ![sample cards](readme-assets/card-sample.jpg)
 
-Before we start, we need to determine the maximum width needed for the images on our cards. If we assume a maximum viewport width of 1920px, then the maximum width of our images is 1920px / 4 = 480px. **Crop all of your images to a width of 480px.**
+Before we start, we need to determine the maximum width needed for the images on our cards. For this assignment, we ignore [device pixel ratios](https://tomroth.com.au/dpr/) and will assume a maximum viewport width of 2000px. Therefore, the maximum width of our images is 500px or 2000px / 4.
 
-_We are ignoring extra wide viewports and device pixel ratios for now, which do require higher resolution images._
+**Crop all of your images to a width of 500px.**
+
 
 | ⚠️ Make sure your cards all have the same aspect ratio                                                                                                                                                                                                                                    |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -71,7 +79,7 @@ Requirements for this section:
 
 - Add a `<section>` with class `.cards` that will contain four cards. The section can be inside or outside `<main>`. _If it is inside main, its width will be limited by the `max-width` of main. If the cards are outside main, add a "gutter" of at least 1rem on the left and right to offset the cards from the edge of the screen_
 - Add four cards, each with a unique image and text (text can either be always visible or appear on hover). You are welcome to model your cards after ones you've seen online or after some cards we reviewed in class.
-- Card images are 480px wide. They can be any height, but should all be the same height. Make sure to add the `width` and `height` attributes to your `<img>` elements so that the browser can reserve space for the image before it loads.
+- Card images are 500px wide. They can be any height, but should all be the same height. Make sure to add the `width` and `height` attributes to your `<img>` elements so that the browser can reserve space for the image before it loads.
 - Images are responsive, in other words, they resize if the card resizes. This means their CSS width is set to 100%, which will cause them to always fill the width of their container. To override the height set in the `<img>` HTML, set the `height` property to `auto` in your CSS.
 
   ```css
@@ -82,19 +90,19 @@ Requirements for this section:
   }
   ```
 
-- Each card has its content wrapped in an `<a>` element (which can be empty, meaning, you don't have to add an "href" - if it doesn't have an href, set the cursor to pointer).
+- Each card has its content wrapped in an `<a>`. The `<a>` element can be empty, meaning, you don't have to add an "href" or you can use `href="#"` which links to the top of the page - if it doesn't have an href, set the cursor to pointer.
 
 Below is an example of markup for your cards. You are welcome to adjust it to suit your design.
 
 ```html
 <section class="cards">
-  `<a class="card">
-    `<img src="" width="" height="" loading="lazy" alt="" /> `
+  <a href="#' class="card">
+    <img src="" width="" height="" loading="lazy" alt="" />
     <p>card text</p>
-    `</a
-  >
+  </a>
 
   ...
+
 </section>
 ```
 
