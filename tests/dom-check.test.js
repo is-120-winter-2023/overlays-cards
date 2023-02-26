@@ -9,10 +9,10 @@ const CHECK_FOR_INLINE_SVG = false; // enable for inline SVG tests
 const CHECK_FORM = false;
 const CHECK_FOR_BUTTON = true; // enable for button classes
 const CHECK_FOR_PANELS = false; // enable for panel classes
-const CHECK_FOR_HERO = false; // enable for hero info
-const CHECK_FOR_CARDS = false; // enable for card classes
+const CHECK_FOR_HERO = true; // enable for hero info - Overlays and cards
+const CHECK_FOR_CARDS = true; // enable for card classes - Overlays and cards
 const CHECK_FOR_FLEX = false; // enable for flex class on body
-
+const CHECK_FOR_MEDIA_QUERIES = false; // enable for media queries
 /**
  * Converts an integer index to a string name
  * @param {int} index
@@ -167,9 +167,9 @@ if (doms[0]) {
             stylesheets.forEach(stylesheet => {
               if (fontURLRegex.test(stylesheet.href)) {
                 fontsLoaded++;
-                console.log(
-                  `name: ${name} href: ${stylesheet.href} fontsLoaded: ${fontsLoaded}`
-                );
+                // console.log(
+                //   `name: ${name} href: ${stylesheet.href} fontsLoaded: ${fontsLoaded}`
+                // );
               }
             });
 
@@ -418,6 +418,39 @@ if (doms[0]) {
         }
       });
     });
+
+    if (CHECK_FOR_HERO) {
+      // visual tests (not tested here): overlay working; filter or background color
+      test('<div class="hero"> contains an <h1> and a <p>', () => {
+        const hero = docs[INDEX].doc.querySelector("div.hero");
+        expect(
+          hero.querySelector("h1"),
+          `make sure your <h1> is inside a <div class="hero">`
+        ).not.toBeNull();
+        expect(
+          hero.querySelector("p"),
+          'make sure you include a subtitle inside a <p> inside a <div class="hero">'
+        ).not.toBeNull();
+      });
+    }
+
+    if (CHECK_FOR_CARDS) {
+      test(`<section class="cards"> contains four cards, each with class .card`, () => {
+        const cards = docs[INDEX].doc.querySelectorAll("section.cards");
+        expect(
+          cards,
+          'make sure you use <section class="cards"> to contain your cards'
+        ).not.toBeNull();
+        const cardList = docs[INDEX].doc.querySelectorAll(
+          "section.cards .card"
+        );
+        expect(
+          cardList.length,
+          'make sure to include 4 cards with class .card inside your <section class="cards">'
+        ).toBe(4);
+      });
+    }
+
     if (CHECK_FOR_PANELS) {
       test("two articles with class panel", () => {
         const panels = docs[INDEX].doc.querySelectorAll("article.panel");
@@ -486,25 +519,19 @@ if (doms[0]) {
           expect(regex.test(css)).toBe(true);
         });
 
-        if (CHECK_FOR_HERO) {
-          // visual tests (not tested here): overlay working; filter or background color
-          test("hero section contains an <h1> and a <p>", () => {
-            const hero = docs[INDEX].querySelector(".hero");
-            expect(hero.querySelector("h1")).not.toBeNull();
-            expect(hero.querySelector("p")).not.toBeNull();
-          });
+        test("main has max-width set", () => {
+          const regex = new RegExp(/main\s*{[^}]+max-width\s*:/, "gm");
+          expect(regex.test(css)).toBe(true);
+        });
 
+        if (CHECK_FOR_HERO) {
           test("hero h1 font-size set using clamp()", () => {
             const regex = new RegExp(/\.hero h1\s*\{[^}]+font-size:\s*clamp\(/);
             expect(regex.test(css)).toBe(true);
           });
         }
 
-        if (CHECK_FOR_CARDS) {
-          test("section with class .cards contains four cards, each with class .card", () => {
-            const cards = docs[INDEX].querySelectorAll("section.cards .card");
-            expect(cards.length).toBe(4);
-          });
+        if (CHECK_FOR_MEDIA_QUERIES) {
           test("css contains at least two media queries which use (min-width: ...)", () => {
             const count = (css.match(/@media\s*\(min-width/g) || []).length;
             expect(count).toBeGreaterThanOrEqual(2);
@@ -527,11 +554,6 @@ if (doms[0]) {
             expect(fail).toBe(false);
           });
         }
-
-        test("main has max-width set", () => {
-          const regex = new RegExp(/main\s*{[^}]+max-width\s*:/, "gm");
-          expect(regex.test(css)).toBe(true);
-        });
       } else {
         test("styles/main.css file exists", () => {
           expect(

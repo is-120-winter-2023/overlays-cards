@@ -17,7 +17,7 @@
 | Don't worry about vertically centering items well right now. Flexbox makes centering so easy, it's better to wait until we learn flexbox to vertically center elements. Use margins or padding for now. You may see an old school centering using `position: absolute; top: 50%; transform: translate(0, -50%);` &ndash; you are welcome to try it, but...flexbox...so much easier... |
 
 - Add a `<p>` with a subtitle below your `<h1>`.
-- Wrap your `<picture>`, `<h1>` and subtitle in a `<section>` with class `.hero`.
+- Wrap your `<picture>`, `<h1>` and subtitle in a `<div>` with class `.hero`.
 - Use the CSS `position` property to overlay your `<h1>` text and subtitle on top of your hero image. You may want to group your heading and subtitle with a `<div>`
 - Use either a semi-transparent `background-color`, with or without a gradient, or a `filter` to de-emphasize the hero image. Make sure that the overlay gradient or filter covers the entire image (no visible gaps). You can use a `::before` pseudo-element to add the gradient or filter.
 - Adjust the color of the text to make it readable on top of the hero image.
@@ -32,10 +32,6 @@
 | - [Learn more about CSS filters at CSS-Tricks](https://css-tricks.com/almanac/properties/f/filter/) |
 | - [CSS Text Shadow Generator](https://www.cssportal.com/css3-text-shadow-generator/)
 |
-
-| :warning: Dealing with the validator warning "section needs heading |
-|:----|
-| The validator will issue a warning if your `<section>` does not have a heading. You have two options. You can ignore this warning. |
 
 ## Dynamic font size
 
@@ -79,6 +75,28 @@ Before we start, we need to determine the maximum width needed for the images on
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | To make your life easier, **crop all your images so that they have the same width and height**. Square images (1:1) are easiest to work with when you make your site responsive, but rectangular images are doable. Save your original (full-size) image files for use in a later assignment. |
 
+
+### :warning: Dealing with the validator warning "Section lacks heading."
+
+The validator will issue a warning if your `<section>` does not have a heading. You have three options.
+
+- 😬 [ok] Ignore the warning.
+- 😐 [better] Change section to a div, but you lose the semantic meaning of a section.
+- 😃 [best] Add a heading to your `<section>` for screen readers, but hide it from non-screen readers. To hide it, use the `.sr-only` class from the [WebAIM - Invisible Content Just for Screen Reader Users](https://webaim.org/techniques/css/invisiblecontent/).
+
+```css
+.sr-only {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+```
+
 Requirements for this section:
 
 - Add a `<section>` with class `.cards` that will contain four cards. The section can be inside or outside `<main>`. _If it is inside main, its width will be limited by the `max-width` of main. If the cards are outside main, add a "gutter" of at least 1rem on the left and right to offset the cards from the edge of the screen_
@@ -108,7 +126,7 @@ Below is an example of markup for your cards. You are welcome to adjust it to su
 ```html
 <section class="cards">
   <a href="#" class="card">
-    <img src="" width="" height="" loading="lazy" alt="" />
+    <img src="" width="" height="" loading="lazy" alt="" >
     <p>card text</p>
   </a>
 
@@ -119,8 +137,7 @@ Below is an example of markup for your cards. You are welcome to adjust it to su
 
 | 💡 Lazy loading images |
 |:-----------------------|
-| To improve performance, add the `loading="lazy"` attribute to your `<img>` elements that are *below the fold* or not immediately visible when the page is loaded. This will tell the browser to load the images only when they are visible in the viewport and save on page load time. |
-
+| To improve performance, add the `loading="lazy"` attribute to your `<img>` elements that are _below the fold_ or not immediately visible when the page is loaded. This will tell the browser to load the images only when they are visible in the viewport and save on page load time. |
 
 Since, by default, `<a>` elements are inline elements, you will need to set the `display` property of any `<a>` elements inside the `.cards` class to `inline-block` to make them behave like block elements. However, if you use a flexbox layout, you won't need to do this. To simplify this assignment, I recommend adding this to your CSS and not worrying about changing the `<a>` display property. We will learn more about how to use flexboxes in a future assignment.
 
@@ -198,54 +215,67 @@ If you have any errors, fix them in VSCode, commit and sync, and then re-validat
 
 After you've ensured that your page has validated, open your repo in Github and check that you've passed the automated tests. If you haven't passed all of the tests, fix any errors and commit and sync your changes.
 
-### Current automated tests
+### ⭐ Current automated tests
 
 - HTML validation
 - HTML proofer
 
-Pretests (25):
+*Three new tests were added. They are marked with a* ✨ *below*
 
-foofofoffoofoofooo
+Pretests (37):
 
-### :star: Assignment tests
+- General HTML structure
+  - REQUIRED `<head>` INFO
+    - main index.html has `<title>`, `<meta>` description and favicon info
+    - about index.html has `<title>`, `<meta>` description and favicon info
+    - contact index.html has `<title>`, `<meta>` description and favicon info
+  - STYLESHEETS LOADED
+    - main index.html loads styles/main.css
+    - about index.html loads styles/main.css
+    - contact index.html loads styles/main.css
+  - NO `<br>` TAGS
+    - main index.html does not contain any `<br>` tags
+    - about index.html does not contain any `<br>` tags
+    - contact index.html does not contain any `<br>` tags
+  - ONLY ONE `<h1>` IN AN HTML FILE
+    - main index.html contains exactly one `<h1>`
+    - about index.html contains exactly one `<h1>`
+    - contact index.html contains exactly one `<h1>`
+  - MAIN MENU
+    - main index.html has a `<header>` containing a `<nav>` and a `<ul>`
+    - about index.html has a `<header>` containing a `<nav>` and a `<ul>`
+    - contact index.html has a `<header>` containing a `<nav>` and a `<ul>`
+    - main index.html - relative paths used in main menu; paths do not end with 'index.html'
+    - about index.html - relative paths used in main menu; paths do not end with 'index.html'
+    - contact index.html - relative paths used in main menu; paths do not end with 'index.html'
+- Image tests
+  - image paths are all lowercase and contain no spaces
+  - images must be 2000px wide or less
+  - relative paths to images used, and images must be in the images directory
+  - non-SVG and non-`<picture>` `<img>` height and width attributes set to the image's intrinsic dimensions
+  - `<picture>` element must contain three `<source>` elements with media and srcset attributes
+  - about page includes an `<img>` element that uses `srcset` and `sizes` to load three versions of the same image with different widths
+  - contact page loads an SVG file with `<img>`
+- MAIN index.html ONLY
+  - main index.html must contain a `<picture>`, one `<main>`, at least two `<article>`, an `<aside>`, and a `<footer>`
+  - `<article>` must contain an `<h2>` and at least one `<p>`
+  - ✨ `<div class="hero">` contains an `<h1>` and a `<p>`
+  - ✨`<section class="cards">` contains four cards, each with class `card`
+- CSS tests
+  - `!important` never used
+  - global `box-sizing` rule set to `border-box` and `:root` contains CSS variables
+  - `font-family` and `color` set in `body`
+  - remove underlines from `<a>` and add `:hover` class for all <a> that contain `href` attribute
+  - CSS contains `.button` and `.button:hover` declarations
+  - footer has styling including `background-color`
+  - main has `max-width` set
+  - ✨ hero `h1` font-size set using `clamp()`
 
-_All but the last three tests are from previous assignments._
-
-General HTML structure
-
-- `<head>` has `<title>`, `<meta>` description and favicon info, loads normalize, fonts, and main styles in proper order
-- all HTML files should contain an `<h1>`, and only one `<h1>`
-- all index.html files have `<header>` containing a `<nav>` and `<ul>`
-
-Tests for main index.html
-
-- main index.html must contain a `<picture>`, one `<main>`, at least two `<article>`, an `<aside>`, and a `<footer>`
-- each `<article>` must contain an `<h2>`, at least one `<p>` and an `<a class="button">`
-
-Image tests
-
-- image paths are all lowercase and contain no spaces
-- images must be 1920px wide or less
-- relative paths to images used, and images must be in the images directory
-- non-SVG and non-`<picture>` images have the `<img>` height and width attributes set to the image's intrinsic dimensions
-- `<picture>` element must contain three `<source>` elements with media and srcset attributes
-- contact page loads an SVG file with `<img>`
-
-CSS tests
-
-- global box-sizing rule set to border-box and :root contains CSS variables
-- font-family, color, and line-height set in body
-- remove underlines from `<a>` and add :hover class for all `<a>` that contain href attribute
-- CSS contains .button style and .button:hover declarations
-
-:sparkles: **new tests**
-
-- hero section contains an `<h1>` and a `<p>`
-- hero `h1` font-size set using `clamp()`
-- section with class `.cards` contains four cards, each with class `.card`
 
 | :heavy_check_mark: You will also be graded on the following items from the rubric:                                                                                                                                                                          |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <ul><li>Hero image is de-emphasized with a semi-transparent background, a gradient background, or a filter</li><li>Cards have a hover effect with a transition</li><li>The general appearance of your web page – proper spacing, font size, etc. </li></ul> |
 
-_When you are ready for you assignment to be graded, submit a link to your Github repo on Learning Suite for the **CSS Fonts and a Button** assignment_
+## 📝 Submit link to repo on Learning Suite
+
+_When you are ready for you assignment to be graded, submit a link to your Github repo on Learning Suite for the **Overlays and Cards** assignment_
